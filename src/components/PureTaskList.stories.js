@@ -1,19 +1,19 @@
+import PureTaskList from "./PureTaskList";
 import * as TaskStories from "./Task.stories";
-import TaskList from "./TaskList";
 
 export default {
-  component: TaskList,
-  title: "TaskList",
+  component: PureTaskList,
+  title: "PureTaskList",
   decorators: [() => '<div style="padding: 3rem;"><story /></div>'],
 };
 
 const Template = (args, { argTypes }) => ({
-  components: { TaskList },
+  components: { PureTaskList },
   props: Object.keys(argTypes),
   // We are reusing our actions from task.stories.js
   methods: TaskStories.actionsData,
   template:
-    '<TaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+    '<PureTaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
 });
 
 export const Default = Template.bind({});
@@ -37,17 +37,6 @@ WithPinnedTasks.args = {
   tasks: [
     { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" },
     ...Default.args.tasks.slice(0, 5),
-  ],
-};
-
-export const WithArchivedTasks = Template.bind({});
-WithArchivedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
-  tasks: [
-    ...Default.args.tasks.slice(0, 4),
-    { id: "5", title: "Task 5 (Archived)", state: "TASK_ARCHIVED" },
-    { id: "6", title: "Task 6 (Archived)", state: "TASK_ARCHIVED" },
   ],
 };
 
